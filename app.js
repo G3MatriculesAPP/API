@@ -14,27 +14,38 @@ app.get('/', (req, res) =>{
     res.send('<html><body></body></html>')
 })
 
-app.get('/alumnes/login', (req, res) => {
-    res.send('<form method="POST"><label for="fname">DNI:</label><br><input type="email" id="fname" name="email"><br><label for="fpass">PASSWORD<label><br><input type="password" id="fpass" name="password"><input type="submit" value="Submit"></form>')
+app.post('/admin/login',(req, res) => {
+    run("admins", req, res);
 })
 
-app.post('/alumnes/login',(req, res) => {
-    run(req, res);
+app.post('/alum/login',(req, res) => {
+    run("alumnes", req, res);
 })
 
-async function run(req, res){
+async function run(collection, req, res){
     
+    // run()
+    // Conecta con la MongoDB y hace una query con el correo y la contraseña pasadas desde
+    // la APP y dependiendo del enlace a una coleccion u otra, la contraseña ya viene hasheada en MD5. 
+    // Los resultados se guardan en un array, se contempla que los resultados siempre sean 0 o 1 asi 
+    // que si la longitud de este es < 1 se manda STATUS 500 y si su longitud es 1, es decir, que ha
+    // obtenido una coincidencia se manda STATUS 200 y se le envia al usuario un TOKEN generado.
+
     try{
+
+        res.header('Access-Control-Allow-Origin', '*');     // Para habilitar CORS (Hay que cambiarlo, con "*" no es muy seguro
+                                                            // ya que esta es una API privada y no pública.)
+
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
-        const loginAlumn = await db.collection('alumnes').find({EMAIL : req.body.email, PASSWORD : md5(req.body.password)}).toArray();
+        const login = await db.collection(collection).find({EMAIL: req.body.itEmail, PASSWORD: req.body.itPassword}).toArray();
         
-        if(loginAlumn.length < 1){
+        if(login.length < 1){
             res.status(500).send({ message: "Usuari/contrasenya incorrecta..."})
         }else{
             res.status(200).send({
                 message: 'Te has logueado correctamente',
-                token: service.createToken(loginAlumn)
+                token: service.createToken(login[0])
             });
             client.close();
         }
