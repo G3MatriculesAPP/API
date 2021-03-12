@@ -6,9 +6,11 @@ const app = express();
 const service = require('./services/index')
 const MongoClient = require('mongodb').MongoClient;
 const md5 = require('md5');
+const cors = require('cors');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/', (req, res) =>{
     res.send('<html><body></body></html>')
@@ -33,7 +35,7 @@ async function run(collection, req, res){
 
     try{
 
-        res.header('Access-Control-Allow-Origin', '*');     // Para habilitar CORS (Hay que cambiarlo, con "*" no es muy seguro
+        // res.header('Access-Control-Allow-Origin', '*');     // Para habilitar CORS (Hay que cambiarlo, con "*" no es muy seguro
                                                             // ya que esta es una API privada y no pública.)
 
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
