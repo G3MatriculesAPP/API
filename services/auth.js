@@ -1,6 +1,5 @@
 'use strict'
 
-const { response } = require('express')
 const services = require('./index')
 
 function isAuth(req, res, next){
@@ -11,6 +10,7 @@ function isAuth(req, res, next){
     // llamando a "decodeToken()" y dependiendo de su resultado manda un STATUS u otro. 
     
     var token = req.body.token;
+    console.log(token)
 
     if(!token){
         return res.status(403).send({ message: "No tienes autorización"})

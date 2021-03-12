@@ -16,7 +16,7 @@ app.get('/', (req, res) =>{
     res.send('<html><body></body></html>')
 })
 
-app.get('/api/auth', auth, (req, res) => {
+app.get('/api/auth', auth, (req, res, next) => {
     res.status(200).send({ message: 'Tienes acceso' })
 })
 
