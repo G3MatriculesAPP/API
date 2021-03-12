@@ -13,7 +13,7 @@ function createToken(loginAlumn){
     const payload = {
         sub: loginAlumn[0],
         iat: moment().unix(),
-        exp: moment().add(1, 'hours').unix(),
+        exp: moment().add(1, 'minutes').unix(),
     }
 
     return  jwt.encode(payload, config.SECRET_TOKEN)

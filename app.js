@@ -16,8 +16,8 @@ app.get('/', (req, res) =>{
     res.send('<html><body></body></html>')
 })
 
-app.post('/api/auth',(req, res) => {
-    res.status(auth.isAuth(req, res, next()))
+app.get('/api/auth', auth, (req, res) => {
+    res.status(200).send({ message: 'Tienes acceso' })
 })
 
 app.post('/admin/login',(req, res) => {
