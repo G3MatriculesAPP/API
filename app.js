@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const service = require('./services/index')
 const MongoClient = require('mongodb').MongoClient;
-const md5 = require('md5');
 const cors = require('cors');
+const auth = require('./services/auth')
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -14,6 +14,10 @@ app.use(cors());
 
 app.get('/', (req, res) =>{
     res.send('<html><body></body></html>')
+})
+
+app.post('/api/auth',(req, res) => {
+    res.status(auth.isAuth(req, res, next()))
 })
 
 app.post('/admin/login',(req, res) => {
