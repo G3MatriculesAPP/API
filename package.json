@@ -1,14 +1,24 @@
 {
-  "name": "api",
+  "name": "pruebanodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "jwt-simple": "^0.5.6",
+    "md5": "^2.3.0",
+    "moment": "^2.29.1",
+    "mongoclient": "^1.0.3",
+    "mongodb": "^3.6.4",
+    "mongodb-utils": "^1.1.6",
+    "nodaemon": "^0.0.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+  "license": "ISC"
 }
