@@ -2,16 +2,24 @@
 const config = require('./config')
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
-const service = require('./services/index')
+const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
-const md5 = require('md5');
+
+const service = require('./services/index')
+const auth = require('./services/auth')
+
+const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/', (req, res) =>{
     res.send('<html><body></body></html>')
+})
+
+app.get('/api/auth', auth, (req, res, next) => {
+    res.status(200).send({ message: 'Tienes acceso' })
 })
 
 app.post('/admin/login',(req, res) => {
@@ -32,9 +40,6 @@ async function run(collection, req, res){
     // obtenido una coincidencia se manda STATUS 200 y se le envia al usuario un TOKEN generado.
 
     try{
-
-        res.header('Access-Control-Allow-Origin', '*');     // Para habilitar CORS (Hay que cambiarlo, con "*" no es muy seguro
-                                                            // ya que esta es una API privada y no pública.)
 
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');

@@ -13,7 +13,7 @@ function createToken(loginAlumn){
     const payload = {
         sub: loginAlumn[0],
         iat: moment().unix(),
-        exp: moment().add(1, 'hours').unix(),
+        exp: moment().add(30, 'minutes').unix(),
     }
 
     return  jwt.encode(payload, config.SECRET_TOKEN)
@@ -27,31 +27,37 @@ function decodeToken(token){
     // y no ha expirado resuelve la ID del usuario del TOKEN y la devuelve.
 
     const decoded = new Promise((resolve, reject) => {
-        try{
-            const payload = jwt.decode(token, config.SECRET_TOKEN)
-            
-            if(payload.exp <= moment().unix()){
-                resolve({
-                    status: 401,
-                    message: 'El token ha expirado...'
-                })
-            }
-
-            resolve(payload.sub)
-
-        } catch(err){
-            reject({
-                status: 500,
-                message: 'Invalid Token'
+        
+        try {
+          
+          const payload = jwt.decode(token, config.SECRET_TOKEN)
+    
+          if (payload.exp <= moment().unix()) {
+            resolve({
+              status: 500,
+              message: 'El token ha expirado'
             })
+          }
+
+          resolve({
+            status: 200,
+            message: 'Token descrifrado',
+            user: payload.sub
+          })
+
+        } catch (err) {
+          resolve({
+            status: 500,
+            message: 'Invalid Token'
+          })
         }
     })
-
+    
     return decoded
-
 }
-
-module.exports = {
-    createToken,
-    decodeToken
-}
+    
+    module.exports = {
+      createToken,
+      decodeToken
+    }
+    
