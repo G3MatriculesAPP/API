@@ -7,6 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 const service = require('./services/index')
 const auth = require('./services/auth')
+const cicles = require('./services/cicles.js')
 
 const app = express();
 
@@ -28,6 +29,31 @@ app.post('/admin/login',(req, res) => {
 
 app.post('/alum/login',(req, res) => {
     run("alumnes", req, res);
+})
+
+// SPRINT 2
+
+// CREATE
+app.post('/api/cicles', (req, res) => {
+    cicles.createCicles(req, res);
+})
+
+// READ
+app.get('/api/cicles', (req, res) => {
+    readCicles(req, res);
+
+})
+
+// UPDATE
+app.put('/api/cicles', (req, res) => {
+    cicles.updateCicles(req, res);
+
+})
+
+// DELETE
+app.delete('/api/cicles', (req, res) => {
+    cicles.deleteCicles(req, res);
+
 })
 
 async function run(collection, req, res){
@@ -64,3 +90,28 @@ async function run(collection, req, res){
 app.listen(config.port, () => {
     console.log('[SERVER] - Listening at: http://localhost:' + config.port)
 })
+
+async function readCicles(req, res){
+    
+    try{
+
+        const projection = { hores: 1, nom: 1, dataInici: 1, codi: 1, codiAdaptacioCur_: 1}
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        const login = await db.collection("cicles").find().project(projection).toArray();
+        
+        if(login.length < 1){
+            res.status(500).send({ message: "Imposible obtener los ciclos..."})
+        }else{
+            res.status(200).send({
+                message: 'Ciclos obtenidos correctamente!',
+                data: login
+            });
+            client.close();
+        }
+        
+    }catch (e){
+        console.error(e);
+    }
+
+}
