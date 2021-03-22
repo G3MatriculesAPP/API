@@ -6,6 +6,30 @@ const ObjectId = require('mongodb').ObjectID;
 
 async function createCicles(req, res){
 
+    // createCicles()
+    // Recibe un JSON de la APP con CICLES y los añade todos a la DB, los datos ya vienen parseados y filtrados por el usuario
+    
+    try{
+
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+
+        const array = req.body.data;
+        const parsedArray = JSON.parse(array);
+
+        await db.collection("cicles").insertMany(parsedArray, function(err, rec){
+            if(err) throw res.status(500).send();
+
+            console.log("[DEBUG] - CICLE/S afegit correctament! :D")
+            res.status(200).send()
+            
+        })
+
+    }catch(e){
+        console.error(e);
+    }
+
+
 }
 
 async function readCicles(req, res){

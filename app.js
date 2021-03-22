@@ -37,7 +37,7 @@ app.post('/alum/login',(req, res) => {
 // SPRINT 2
 
 // CREATE
-app.post('/api/cicles', (req, res) => {
+app.post('/api/upload/cicles', (req, res) => {
     ciclesController.createCicles(req, res);
 })
 
