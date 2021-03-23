@@ -15,7 +15,9 @@ async function createCicles(req, res){
         const db = client.db('G3Matricules');
 
         const array = req.body.data;
-        const parsedArray = JSON.parse(array);
+        const parsedArray = JSON.parse(array)
+
+        console.log(parsedArray)
 
         await db.collection("cicles").insertMany(parsedArray, function(err, rec){
             if(err) throw res.status(500).send();
