@@ -18,10 +18,10 @@ async function readModuls(req, res){
         const login = await db.collection("cicles").find({"_id": new ObjectId(req.body.id)}).project(filter).toArray();
         
         if(login.length < 1){
-            res.status(500).send({ message: "Imposible obtener los ciclos..."})
+            res.status(500).send({ message: "Imposible obtener los moduls..."})
         }else{
             res.status(200).send({
-                message: 'Ciclos obtenidos correctamente!',
+                message: 'Moduls obtenidos correctamente!',
                 data: login[0].moduls
             });
             client.close();
