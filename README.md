@@ -37,3 +37,59 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | 200 | Token descifrado |
 | 500 | El token ha expirado |
 | 500 | Invalid token |
+
+### /api/upload/cicles
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | String | Token del usuario obtenido al iniciar sesion |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Token descifrado |
+| 500 | El token ha expirado |
+| 500 | Invalid token |
+
+### /api/cicles
+#### GET
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | String | Token del usuario obtenido al iniciar sesion |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Token descifrado |
+| 500 | El token ha expirado |
+| 500 | Invalid token |
+
+#### PUT
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | String | Token del usuario obtenido al iniciar sesion |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Token descifrado |
+| 500 | El token ha expirado |
+| 500 | Invalid token |
+
+### /api/moduls
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | String | Token del usuario obtenido al iniciar sesion |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Token descifrado |
+| 500 | El token ha expirado |
+| 500 | Invalid token |
+
+### /api/ufs
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | String | Token del usuario obtenido al iniciar sesion |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Token descifrado |
+| 500 | El token ha expirado |
+| 500 | Invalid token |
