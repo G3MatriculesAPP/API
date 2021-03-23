@@ -15,7 +15,7 @@ const ufsController = require('./controllers/ufs')
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json({limit: '200mb'}));
+app.use(bodyParser.json({limit: '1000mb'}));
 app.use(cors());
 
 app.get('/', (req, res) =>{
