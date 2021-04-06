@@ -4,9 +4,15 @@ const config = require('../config')
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 
-async function createCicles(req, res){
 
-    // createCicles()
+async function insertOne(req, res){
+
+}
+
+
+async function insertMany(req, res){
+
+    // insertMany()
     // Recibe un JSON de la APP con CICLES y los añade todos a la DB, los datos ya vienen parseados y filtrados por el usuario
     
     try{
@@ -67,13 +73,24 @@ async function updateCicles(req, res){
 
 }
 
-async function deleteCicles(req, res){
+async function deleteOne(req, res){
+
+}
+
+async function deleteMany(req, res){
+
+}
+
+async function deleteAll(req, res){
 
 }
 
 module.exports = {
-    createCicles,
+    insertOne,
+    insertMany,
     readCicles,
     updateCicles,
-    deleteCicles
+    deleteOne,
+    deleteMany,
+    deleteAll
   }

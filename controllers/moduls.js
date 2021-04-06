@@ -4,6 +4,7 @@ const config = require('../config')
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
 
+
 async function readModuls(req, res){
 
     // readModuls()
@@ -33,6 +34,26 @@ async function readModuls(req, res){
 
 }
 
+async function updateModuls(req, res){
+
+}
+
+async function deleteOneModul(req, res){
+
+}
+
+async function deleteManyModuls(req, res){
+
+}
+
+async function deleteAllModuls(req, res){
+
+}
+
 module.exports = {
-    readModuls
+    readModuls,
+    updateModuls,
+    deleteOneModul,
+    deleteManyModuls,
+    deleteAllModuls
   }

@@ -33,6 +33,26 @@ async function readUFS(req, res){
 
 }
 
+async function updateUFS(req, res){
+
+}
+
+async function deleteOneUF(req, res){
+
+}
+
+async function deleteManyUFS(req, res){
+
+}
+
+async function deleteAllUFS(req, res){
+
+}
+
 module.exports = {
-    readUFS
+    readUFS,
+    updateUFS,
+    deleteOneUF,
+    deleteManyUFS,
+    deleteAllUFS
   }
