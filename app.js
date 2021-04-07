@@ -6,10 +6,12 @@ const cors = require('cors');
 const app = express();
 
 const auth = require('./services/auth')
+
 const ciclesController = require('./controllers/cicles')
 const modulsController = require('./controllers/moduls')
 const ufsController = require('./controllers/ufs')
 const loginController = require('./controllers/login')
+const alumnesController = require('./controllers/alumnes')
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json({limit: '1000mb'}));
@@ -148,4 +150,42 @@ app.delete('/api/ufs/deleteMany', (req, res) => {
 
 app.delete('/api/ufs/deleteAll', (req, res) => {
     ufsController.deleteAllUFS(req, res);
+})
+
+ /* ===============================================
+  *                   SPRINT 3
+  * ===============================================
+  * 
+  */
+
+app.post('/api/alumnes/insertOne', (req, res) => {
+     alumnesController.insertOne(req, res);
+ })
+
+app.post('/api/alumnes/insertMany', (req, res) => {
+    alumnesController.insertMany(req, res);
+})
+
+app.get('/api/alumnes/readAll', (req, res) => {
+     alumnesController.readAll(req, res);
+ })
+
+app.post('/api/alumnes/readAllByCicle', (req, res) => {
+    alumnesController.readAllByCicle(req, res);
+})
+
+app.post('/api/alumnes/readOne', (req, res) => {
+    alumnesController.readOne(req, res);
+})
+
+app.put('/api/alumnes/updateOne', (req, res) => {
+    alumnesController.updateOne(req, res);
+})
+
+app.delete('/api/alumnes/deleteOne', (req, res) => {
+    alumnesController.deleteOne(req, res);
+})
+
+app.delete('/api/alumnes/deleteAll', (req, res) => {
+    alumnesController.deleteAll(req, res);
 })
