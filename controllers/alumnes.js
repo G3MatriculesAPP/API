@@ -64,6 +64,26 @@ async function readAllByCicle(req, res){
 }
 
 async function readOne(req, res){
+
+    try{
+
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        const login = await db.collection("alumnes").find({"_id": new ObjectId(req.body.id)}).toArray();
+        
+        if(login.length < 1){
+            res.status(500).send({ message: "Imposible obtener los moduls..."})
+        }else{
+            res.status(200).send({
+                message: 'Moduls obtenidos correctamente!',
+                data: login
+            });
+            client.close();
+        }
+        
+    }catch (e){
+        console.error(e);
+    }
     
 }
 
