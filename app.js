@@ -80,11 +80,11 @@ app.post('/alum/login',(req, res) => {
  // === CREATE ===
 
 app.post('/api/cicles/insertOne', (req, res) => {
-    ciclesController.createOneCicle(req, res);
+    ciclesController.insertOne(req, res);
 })
 
 app.post('/api/cicles/insertMany', (req, res) => {
-    ciclesController.createManyCicles(req, res);
+    ciclesController.insertMany(req, res);
 })
 
 // === READ ===

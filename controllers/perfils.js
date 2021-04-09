@@ -6,6 +6,27 @@ const ObjectId = require('mongodb').ObjectID;
 
 async function insertOne(req, res){
 
+    try{
+
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+
+        const array = req.body.data;
+        const parsedArray = JSON.parse(array)
+
+        console.log(parsedArray)
+
+        await db.collection("perfilsRequeriments").insertOne(parsedArray, function(err, rec){
+            if(err) throw res.status(500).send();
+            console.log("[DEBUG] - PERFIL afegit correctament! :D")
+            res.status(200).send()
+        })
+
+    }catch(e){
+        console.error(e);
+    }
+
+
 }
 
 async function readAll(req, res){
