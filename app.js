@@ -12,6 +12,7 @@ const modulsController = require('./controllers/moduls')
 const ufsController = require('./controllers/ufs')
 const loginController = require('./controllers/login')
 const alumnesController = require('./controllers/alumnes')
+const perfilsController = require('./controllers/perfils')
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json({limit: '1000mb'}));
@@ -114,7 +115,7 @@ app.put('/api/ufs/update', (req, res) => {
     ufsController.updateUFS(req, res);
 })
 
-// === DELTE ===
+// === DELETE ===
 
 app.delete('/api/cicles/deleteOne', (req, res) => {
     ciclesController.deleteOneCicle(req, res);
@@ -188,4 +189,30 @@ app.delete('/api/alumnes/deleteOne', (req, res) => {
 
 app.delete('/api/alumnes/deleteAll', (req, res) => {
     alumnesController.deleteAll(req, res);
+})
+
+// PERFILS I REQUERIMENTS:
+
+app.post('/api/reqPerfils/insertOne', (req, res) => {
+    perfilsController.insertOne(req, res);  
+})
+
+app.get('/api/reqPerfils/readAll', (req, res) => {
+    perfilsController.readAll(req, res);
+})
+
+app.post('/api/reqPerfils/readOne', (req, res) => {
+    perfilsController.readOne(req, res);
+})
+
+app.put('/api/reqPerfils/updateOne', (req, res) => {
+    perfilsController.updateOne(req, res);
+})
+
+app.delete('/api/reqPerfils/deleteAll', (req, res) => {
+    perfilsController.deleteAll(req, res);
+})
+
+app.delete('/api/reqPerfils/deleteOne', (req, res) => {
+    perfilsController.deleteOne(req, res);
 })
