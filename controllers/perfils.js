@@ -37,17 +37,17 @@ async function readOne(req, res){
 
     try{
 
-        const filter = { requeriments: {nomReq: 1, tipusReq: 1}}
+        // const filter = {requeriments: {nomReq: 1, tipusReq: 1}}
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
-        const login = await db.collection("perfilsRequeriments").find({"_id": new ObjectId(req.body.id)}).project(filter).toArray();
+        const login = await db.collection("perfilsRequeriments").find({"_id": new ObjectId(req.body.id)}).toArray();
         
         if(login.length < 1){
             res.status(500).send({ message: "Imposible obtener los requeriments..."})
         }else{
             res.status(200).send({
                 message: 'Requeriments obtenidos correctamente!',
-                data: login
+                data: login[0].requeriments
             });
             client.close();
         }
