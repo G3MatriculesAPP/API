@@ -226,8 +226,6 @@ app.post('/api/reqPerfils/uploadReq', function(req, res) {
             console.log(err);
             return;
         }
-
-        res.json(req.files)
         res.status(200).send("Fichero subido correctamente!")
     })
 })
