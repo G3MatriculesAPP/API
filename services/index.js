@@ -11,7 +11,7 @@ function createToken(loginAlumn){
     // de 1h desde el momento que el usuario se loguea a la BD.
 
     const payload = {
-        sub: loginAlumn[0],
+        sub: loginAlumn._id,
         iat: moment().unix(),
         exp: moment().add(30, 'minutes').unix(),
     }

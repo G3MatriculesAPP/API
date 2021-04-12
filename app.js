@@ -229,3 +229,7 @@ app.post('/api/reqPerfils/uploadReq', function(req, res) {
         res.status(200).send("Fichero subido correctamente!")
     })
 })
+
+app.post('/api/cicles/readOneByAlumne', (req, res) => {
+    ciclesController.readOneByAlumne(req, res);
+})
