@@ -17,8 +17,8 @@ const loginController = require('./controllers/login')
 const alumnesController = require('./controllers/alumnes')
 const perfilsController = require('./controllers/perfils')
 
-app.use(bodyParser.urlencoded({extended: true, limit: '1000mb'}));
-app.use(bodyParser.json({limit: '1000mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '1000mb', extended: false}));
+app.use(bodyParser.json({limit: '1000mb', extended: false}));
 app.use(cors());
 
 app.listen(config.port, () => {
@@ -228,5 +228,6 @@ app.post('/api/reqPerfils/uploadReq', function(req, res) {
         }
 
         res.json(req.files)
+        res.status(200).send("Fichero subido correctamente!")
     })
 })
