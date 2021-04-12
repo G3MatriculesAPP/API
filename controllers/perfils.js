@@ -3,6 +3,20 @@
 const config = require('../config')
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads/requisits');
+    },
+    filename: function(req, file, cb){
+        cb(null, file.originalname);
+    }
+});
+
+const uploadReq = multer({storage: storage}).single('file');
+
+
 
 async function insertOne(req, res){
 
@@ -93,6 +107,7 @@ async function deleteAll(req, res){
 }
 
 module.exports = {
+    uploadReq,
     insertOne,
     readAll,
     readOne,

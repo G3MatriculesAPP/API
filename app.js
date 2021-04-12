@@ -4,6 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
+const multer = require('multer');
+const upload = multer();
+
 
 const auth = require('./services/auth')
 
@@ -215,4 +218,15 @@ app.delete('/api/reqPerfils/deleteAll', (req, res) => {
 
 app.delete('/api/reqPerfils/deleteOne', (req, res) => {
     perfilsController.deleteOne(req, res);
+})
+
+app.post('/api/reqPerfils/uploadReq', function(req, res) {
+    perfilsController.uploadReq(req, res, function(err){
+        if(err){
+            console.log(err);
+            return;
+        }
+
+        res.json(req.files)
+    })
 })
