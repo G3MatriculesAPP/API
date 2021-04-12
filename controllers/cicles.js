@@ -45,19 +45,18 @@ async function insertMany(req, res){
 
 async function readOneByAlumne(req, res){
 
-    
-
-
     try{
 
-        const payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
-        console.log(payload.iat)
-
+        var payload = ""
+        authController.decodeToken(req.body.token)
+        .then(response => {
+            payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
+        })
 
         var cicleAlumne = "";
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
-        const login = await db.collection("alumnes").find({"_id": new ObjectId(req.body.id)}).toArray();
+        const login = await db.collection("alumnes").find({"_id": new ObjectId(payload.sub)}).toArray();
         if(login.length < 1){
             res.status(500).send({ message: "Imposible obtener el alumno..."})
         }else{
