@@ -17,8 +17,8 @@ const loginController = require('./controllers/login')
 const alumnesController = require('./controllers/alumnes')
 const perfilsController = require('./controllers/perfils')
 
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json({limit: '1000mb'}));
+app.use(bodyParser.urlencoded({extended: true, limit: '1000mb'}));
+app.use(bodyParser.json({limit: '1000mb', extended: true}));
 app.use(cors());
 
 app.listen(config.port, () => {
