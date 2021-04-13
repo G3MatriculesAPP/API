@@ -5,6 +5,10 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 
 ## ENDPOINTS
 
+<br>
+
+## **SPRINT 1**
+
 ### alum/login
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
@@ -38,7 +42,11 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | 500 | El token ha expirado |
 | 500 | Invalid token |
 
-### /api/upload/cicles
+<br>
+
+## **SPRINT 2**
+
+### [POST] /api/cicles/insertMany
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
 | data | JSON | Cicles en format JSON a pujar a la DB |
@@ -48,25 +56,14 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | 200 | Cicle/s afeigit/s correctament! |
 | 500 | null |
 
-### /api/cicles
-#### GET
+### [GET] /api/cicles/readAll 
 
 | STATUS | MESSAGE |
 |:-:|:-:|
 | 200 | Ciclos obtenidos correctamente |
 | 500 | Imposible obtener los ciclos... |
 
-#### PUT
-| PARAM | VALUE | DESCRIPTION |
-|:-:|:-:|:-:|
-| id | String | ObjectID del cicle a actualitzar |
-
-| STATUS | MESSAGE |
-|:-:|:-:|
-| 200 | Cicle actualitzat correctament! |
-| 500 | No s'ha pogut actualitzar el cicle.. |
-
-### /api/moduls
+### [POST] /api/moduls/readAll
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
 | id | String | ObjectID del cicle a obtenir les dades |
@@ -76,7 +73,7 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | 200 | Moduls obtenidos correctamente! |
 | 500 | Imposible obtener los moduls. |
 
-### /api/ufs
+### [POST] /api/ufs/readAll  
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
 | id | String | ObjectID del cicle a obtenir les dades|
@@ -86,3 +83,54 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 |:-:|:-:|
 | 200 | UF obtenides correctament! |
 | 500 | Imposible obtenir les UF |
+
+## **SPRINT 3**
+
+### [POST] /api/alumnes/insertMany
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| data | JSON | Alumnes en format JSON a pujar a la DB |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Alumne/s afeigit/s correctament! |
+| 500 | null |
+
+### [POST] /api/alumnes/readAllByCicle
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| cicle | String | Nom del cicle a obtenir les dades |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Alumnos obtenidos correctamente! |
+| 500 | Imposible obtener los alumnos. |
+
+### [POST] /api/reqPerfils/insertOne
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| data | JSON | Perfil en format JSON a pujar a la DB |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Perfil afeigit correctament! |
+| 500 | null |
+
+### [GET] /api/reqPerfils/readAll
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Perfiles obtenidos correctamente |
+| 500 | Imposible obtener los perfiles... |
+
+### [POST] /api/reqPerfils/readOne
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| id | String | ObjectID del perfil a obtenir les dades |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Requisits obtenidos correctamente! |
+| 500 | Imposible obtener los requisits. |
+
+
+### [POST] /api/reqPerfils/uploadReq
