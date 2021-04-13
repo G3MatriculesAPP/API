@@ -6,8 +6,6 @@ const cors = require('cors');
 const app = express();
 const multer = require('multer');
 const upload = multer();
-
-
 const auth = require('./services/auth')
 
 const ciclesController = require('./controllers/cicles')
@@ -158,9 +156,46 @@ app.delete('/api/ufs/deleteAll', (req, res) => {
 
  /* ===============================================
   *                   SPRINT 3
-  * ===============================================
+  * === ALUMNES ===
   * 
-  */
+  * == CREATE ==
+  * /api/alumnes/insertOne          - Inserta un nuevo ALUMNO a la DB
+  * /api/alumnes/insertMany         - Inserta un JSON con datos de ALUMNOS a la DB
+  * 
+  * == READ ==
+  * /api/alumnes/readAll            - Obtiene todos los ALUMNOS de la DB 
+  * /api/alumnes/readAllByCicle     - Obtiene todos los ALUMNOS de un CICLO de la DB
+  * /api/alumnes/readOne            - Obtiene todos los datos de un ALUMNO
+  * 
+  * == UPDATE ==
+  * /api/alumnes/updateOne          - Actualiza un ALUMNO de la DB
+  * 
+  * == DELETE
+  * /api/alumnes/deleteOne          - Elimina un ALUMNO de la DB
+  * /api/alumnes/deleteAll          - Elimina todos los ALUMNOS de la DB
+  * /api/alumnes/deleteAllByCicle   - Elimina todos los ALUMNOS de un CICLO de la DB
+  * 
+  * === PERFILS REQUISITS ===
+  * 
+  * == CREATE ==
+  * /api/reqPerfils/insertOne       - Inserta un PERFIL con todos sus datos en la DB
+  * /api/reqPerfils/uploadReq       - Subir un fichero como requisito a la DB.
+  * 
+  * == READ ==
+  * /api/reqPerfils/readAll         - Obtiene todos los PERFILES excepto sus requisitos de la DB
+  * /api/reqPerfils/readOne         - Obtiene todos los REQUISITOS y toda la informacion de un PERFIL de la DB.
+  * 
+  * == UPDATE ==
+  * /api/reqPerfils/updateOne       - Actualiza un PERFIL de la DB
+  * 
+  * == DELETE ==
+  * /api/reqPerfils/deleteAll       - Elimina todos los PERFILES de la DB
+  * /api/reqPerfils/deleteOne       - Elimina un PERFIL de la DB
+  * 
+  * 
+  * /api/cicles/readOneByAlumne     - Obtiene la ID del alumno descifrando su token, a través de su ID obtiene el nombre de su ciclo y a través de ese nombre
+  *                                   obtiene todos los datos de su ciclo.
+  * =============================================== */
 
 app.post('/api/alumnes/insertOne', (req, res) => {
      alumnesController.insertOne(req, res);
@@ -186,12 +221,20 @@ app.put('/api/alumnes/updateOne', (req, res) => {
     alumnesController.updateOne(req, res);
 })
 
+app.patch('/api/alumnes/updateUF', (req, res) => {
+    alumnesController.updateUF(req, res);
+})
+
 app.delete('/api/alumnes/deleteOne', (req, res) => {
     alumnesController.deleteOne(req, res);
 })
 
 app.delete('/api/alumnes/deleteAll', (req, res) => {
     alumnesController.deleteAll(req, res);
+})
+
+app.delete('/api/alumnes/deleteAll', (req, res) => {
+    alumnesController.deleteAllByCicle(req, res);
 })
 
 // PERFILS I REQUERIMENTS:
@@ -226,6 +269,7 @@ app.post('/api/reqPerfils/uploadReq', function(req, res) {
             console.log(err);
             return;
         }
+        console.log("[DEBUG] - Fichero subido correctamente! ")
         res.status(200).send("Fichero subido correctamente!")
     })
 })

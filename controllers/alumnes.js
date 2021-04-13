@@ -3,6 +3,8 @@
 const config = require('../config')
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
+const authController = require('../services/index')
+const jwt = require('jwt-simple')
 
 async function insertOne(req, res){
 
@@ -91,11 +93,42 @@ async function updateOne(req, res){
     
 }
 
+async function updateUF(req, res){
+
+    try{
+
+        var payload = ""
+        authController.decodeToken(req.body.token)
+        .then(response => {
+            payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
+        })
+
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        const array = req.body.data;
+        const parsedArray = JSON.parse(array)
+        await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$set: {"convocatoria.ensenyament.seleccioUF": parsedArray}}, function(err, rec){
+            if(err) throw res.status(500).send();
+            console.log("[DEBUG] - ALUMNE/S afegit correctament! :D")
+            res.status(200).send({
+                message: "UFS seleccionades guardades correctament!"
+            })    
+        })
+    }catch(e){
+        console.error(e);
+    }
+
+}
+
 async function deleteOne(req, res){
     
 }
 
 async function deleteAll(req, res){
+    
+}
+
+async function deleteAllByCicle(req, res){
     
 }
 
@@ -106,6 +139,8 @@ module.exports = {
     readAllByCicle,
     readOne,
     updateOne,
+    updateUF,
     deleteOne,
-    deleteAll
+    deleteAll,
+    deleteAllByCicle
 }
