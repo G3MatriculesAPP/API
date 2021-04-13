@@ -31,6 +31,8 @@ app.listen(config.port, () => {
   * /alum/login     - Login para alumnos con consulta a la coleccion "alumnes"
   * =============================================== */
 
+
+  
 app.get('/', (req, res) =>{
     res.send('<html><body></body></html>')
 })
