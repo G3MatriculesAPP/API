@@ -134,3 +134,43 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 
 
 ### [POST] /api/reqPerfils/uploadReq
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| file | File | Ficher a importar com a requisit |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Fitxer importat correctament! |
+| 500 | Imposible importar el fitxer. |
+
+
+## EXTRA:
+
+<details>
+  <summary>Metodos no implementados pero si declarados:</summary>
+  
+  ```
+  /api/cicles/insertOne 
+  /api/cicles/update 
+  /api/moduls/update
+  /api/ufs/update
+  /api/cicles/deleteOne
+  /api/cicles/deleteMany
+  /api/cicles/deleteAll
+  /api/moduls/deleteOne
+  /api/moduls/deleteMany
+  /api/moduls/deleteAll
+  /api/ufs/deleteOne
+  /api/ufs/deleteMany
+  /api/ufs/deleteAll 
+  /api/alumnes/insertOne 
+  /api/alumnes/updateOne 
+  /api/alumnes/deleteOne 
+  /api/alumnes/deleteAll  
+  /api/alumnes/deleteAllByCicle
+  /api/reqPerfils/updateOne 
+  /api/reqPerfils/deleteAll
+  /api/reqPerfils/deleteOne
+  ```
+</details>
+
