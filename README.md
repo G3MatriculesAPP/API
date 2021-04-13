@@ -143,6 +143,17 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | 200 | Fitxer importat correctament! |
 | 500 | Imposible importar el fitxer. |
 
+### [PATCH] /api/alumnes/uploadUF
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | String | Token del alumne |
+| data | Array | Array amb 0/1 a insertar/actualitzar a la DB |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Seleccio d'UFs guardades correctament! |
+| 500 | No s'ha pogut guardar la seleccio d'UFs. |
+
 
 ## EXTRA:
 
