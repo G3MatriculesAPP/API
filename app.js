@@ -8,6 +8,7 @@ const multer = require('multer');
 const upload = multer();
 const auth = require('./services/auth')
 
+
 const ciclesController = require('./controllers/cicles')
 const modulsController = require('./controllers/moduls')
 const ufsController = require('./controllers/ufs')
@@ -263,57 +264,19 @@ app.delete('/api/reqPerfils/deleteOne', (req, res) => {
     perfilsController.deleteOne(req, res);
 })
 
-app.post('/api/reqPerfils/uploadReq', function(req, res) {
-    perfilsController.uploadReq(req, res, function(err){
-        if(err){
-            console.log(err);
-            return;
-        }
-        console.log("[DEBUG] - Fichero subido correctamente! ")
-        res.status(200).send("Fichero subido correctamente!")
-    })
-})
-
 app.post('/api/cicles/readOneByAlumne', (req, res) => {
     ciclesController.readOneByAlumne(req, res);
 })
 
-const fileFilter = function (req, file, cb) {
-    var fileTypes = ['image/jpeg', 'image/png', 'application/pdf', 'application/msword',                           //File types that are allowed
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',                                      //.jpeg, .png, .pdf, .doc, .docx, .ppt, .pptx
-      'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']
-  
-    if (fileTypes.indexOf(file.mimetype) > -1) {     //Checks to see if file.mimetype is in the fileFilter array
-      cb(null, true);
-    } else {
-      cb(null, false);
-    }
-  };
 
-
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, './uploads/requisits');
-    },
-    filename: function(req, file, cb){
-        cb(null, file.originalname);
-    }
+const cloudinary = require('cloudinary');
+cloudinary.config({ 
+    cloud_name: 'matriculesapp', 
+    api_key: '369193188672646', 
+    api_secret: 'so54IGOFNqjL0aTZcY4FSr-MQ3Y' 
 });
 
-const uploadReq = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 10
-    },
-    fileFilter: fileFilter
-}).single("file");
 
-app.post('/testUploads', (req, res) =>{
-    uploadReq(req, res, function(err){
-        console.log(req.file)
-        if(err){
-            return res.end("Error uploading file")
-        }
-        res.end("File subido!")
-    })
-});
+app.post('/api/uploadReq', async (req, res) => {
+    perfilsController.uploadReq(req, res);
+})

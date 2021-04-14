@@ -3,19 +3,47 @@
 const config = require('../config')
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectID;
-const multer = require('multer');
+const authController = require('../services/index')
+const jwt = require('jwt-simple')
 
-const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, './uploads/requisits');
-    },
-    filename: function(req, file, cb){
-        cb(null, file.originalname);
-    }
+const cloudinary = require('cloudinary');
+cloudinary.config({ 
+    cloud_name: 'matriculesapp', 
+    api_key: '369193188672646', 
+    api_secret: 'so54IGOFNqjL0aTZcY4FSr-MQ3Y' 
 });
 
-const uploadReq = multer({storage: storage}).single('file');
+async function uploadReq(req, res){
+    try{
 
+        var validate = false;
+
+        var payload = ""
+        await authController.decodeToken(req.body.token)
+        .then(response => {
+            validate = true;
+            payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
+        })
+
+        if(validate){
+            const fileStr = req.body.file;
+            var result = await cloudinary.v2.uploader.upload(fileStr, {
+                public_id: "uploads/requisits/" + payload.sub + "_" + req.body.reqName,
+                overwrite: true
+            });
+            console.log(result)
+            res.status(200).send({
+                message: "Fichero subido correctamente!"
+            })
+        }else{
+            console.log("Token invalido...");
+            res.status(500).send("Error....")
+        }        
+    }catch (err) {
+        console.log(err)
+        res.status(500).send("Error....")
+    }
+}
 
 
 async function insertOne(req, res){
