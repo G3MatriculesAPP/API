@@ -277,3 +277,43 @@ app.post('/api/reqPerfils/uploadReq', function(req, res) {
 app.post('/api/cicles/readOneByAlumne', (req, res) => {
     ciclesController.readOneByAlumne(req, res);
 })
+
+const fileFilter = function (req, file, cb) {
+    var fileTypes = ['image/jpeg', 'image/png', 'application/pdf', 'application/msword',                           //File types that are allowed
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',                                      //.jpeg, .png, .pdf, .doc, .docx, .ppt, .pptx
+      'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']
+  
+    if (fileTypes.indexOf(file.mimetype) > -1) {     //Checks to see if file.mimetype is in the fileFilter array
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  };
+
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './uploads/requisits');
+    },
+    filename: function(req, file, cb){
+        cb(null, file.originalname);
+    }
+});
+
+const uploadReq = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 10
+    },
+    fileFilter: fileFilter
+}).single("file");
+
+app.post('/testUploads', (req, res) =>{
+    uploadReq(req, res, function(err){
+        console.log(req.file)
+        if(err){
+            return res.end("Error uploading file")
+        }
+        res.end("File subido!")
+    })
+});
