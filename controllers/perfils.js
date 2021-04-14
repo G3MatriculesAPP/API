@@ -17,7 +17,6 @@ async function uploadReq(req, res){
     try{
 
         var validate = false;
-
         var payload = ""
         await authController.decodeToken(req.body.token)
         .then(response => {
