@@ -27,7 +27,7 @@ async function uploadReq(req, res){
         if(validate){
             const fileStr = req.body.file;
             var result = await cloudinary.v2.uploader.upload(fileStr, {
-                public_id: "uploads/requisits/" + payload.sub + "_" + req.body.reqName,
+                public_id: "uploads/" + payload.sub + "/" + req.body.reqName,
                 overwrite: true
             });
             console.log(result)
