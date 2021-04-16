@@ -161,7 +161,7 @@ async function getStatus(req, res){
 
             const login = await db.collection("alumnes").find({"_id": new ObjectId(req.body.id)}).project(filter).toArray();
 
-            console.log(result)
+            
             res.status(200).send({
 
                 result: login[0].estatSolicitut
@@ -172,7 +172,7 @@ async function getStatus(req, res){
         }        
     }catch (err) {
         console.log(err)
-        res.status(500).send("Error....")
+        res.status(501).send("Error....")
     }
 }
 
