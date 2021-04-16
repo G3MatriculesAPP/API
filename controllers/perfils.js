@@ -164,7 +164,7 @@ async function getStatus(req, res){
             
             res.status(200).send({
             
-                result: login[0]
+                result: login[0].convocatoria.estatSolicitud
             })
         }else{
             console.log("Token invalido...");
