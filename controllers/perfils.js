@@ -13,6 +13,28 @@ cloudinary.config({
     api_secret: 'so54IGOFNqjL0aTZcY4FSr-MQ3Y' 
 });
 
+async function updateAlumProfile(req, res){
+    
+    try{
+        var payload = ""
+        authController.decodeToken(req.body.token)
+        .then(response => {
+            payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
+        })
+
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$set: {"perfilRequisits": req.body.nomPerfil}}, function(err, rec){
+            if(err) throw res.status(500).send();
+            res.status(200).send({
+                message: "Perfil actualitzat correctament!"
+            })    
+        })
+    }catch(e){
+        console.error(e);
+    }
+}
+
 async function uploadReq(req, res){
     try{
 
@@ -139,6 +161,7 @@ module.exports = {
     readAll,
     readOne,
     updateOne,
+    updateAlumProfile,
     deleteOne,
     deleteAll
 }

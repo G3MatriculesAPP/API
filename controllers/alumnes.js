@@ -43,7 +43,6 @@ async function readAll(req, res){
 async function readAllByCicle(req, res){
 
     try{
-
         const filter = { _id: 1, nom: 1, primerCognom: 1, segonCognom: 1, dni: 1, email: 1}
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
@@ -68,16 +67,15 @@ async function readAllByCicle(req, res){
 async function readOne(req, res){
 
     try{
-
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
         const login = await db.collection("alumnes").find({"_id": new ObjectId(req.body.id)}).toArray();
         
         if(login.length < 1){
-            res.status(500).send({ message: "Imposible obtener los moduls..."})
+            res.status(500).send({ message: "Imposible obtener el alumno..."})
         }else{
             res.status(200).send({
-                message: 'Moduls obtenidos correctamente!',
+                message: 'Alumno obtenido correctamente!',
                 data: login
             });
             client.close();
@@ -90,13 +88,29 @@ async function readOne(req, res){
 }
 
 async function updateOne(req, res){
+
+    try{
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        var alumneObj = JSON.parse(req.body.data)
+        var idAlumne = alumneObj._id;
+        delete alumneObj._id;
+        await db.collection("alumnes").replaceOne({"_id": new ObjectId(idAlumne)}, alumneObj, {upsert: true} ,function(err, rec){
+            if(err) throw res.status(500).send();
+            res.status(200).send({
+                message: "Alumne actualitzat correctament!",
+                id: rec.upsertedId._id
+            })    
+        })
+    }catch(e){
+        console.log(e)
+    }
     
 }
 
 async function updateUF(req, res){
 
     try{
-
         var payload = ""
         authController.decodeToken(req.body.token)
         .then(response => {
@@ -109,7 +123,6 @@ async function updateUF(req, res){
         const parsedArray = JSON.parse(array)
         await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$set: {"convocatoria.ensenyament.seleccioUF": parsedArray}}, function(err, rec){
             if(err) throw res.status(500).send();
-            console.log("[DEBUG] - ALUMNE/S afegit correctament! :D")
             res.status(200).send({
                 message: "UFS seleccionades guardades correctament!"
             })    
@@ -121,6 +134,19 @@ async function updateUF(req, res){
 }
 
 async function deleteOne(req, res){
+
+    try{
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        await db.collection("alumnes").deleteOne({"_id": new ObjectId(req.body.id)}, function(err, rec){
+            if(err) throw res.status(500).send();
+            res.status(200).send({
+                message: "Alumne eliminat correctament!"
+            })    
+        })
+    }catch(e){
+        console.log(e)
+    }
     
 }
 

@@ -10,6 +10,22 @@ const jwt = require('jwt-simple')
 
 async function insertOne(req, res){
 
+    try{
+
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        const array = req.body.data;
+        const parsedArray = JSON.parse(array)
+        await db.collection("cicles").insertOne(parsedArray, function(err, rec){
+            if(err) throw res.status(500).send();
+                console.log("[DEBUG] - CICLE/S afegit correctament! :D")
+                res.status(200).send()   
+        })
+
+    }catch(e){
+        console.error(e);
+    }
+
 }
 
 
@@ -79,6 +95,26 @@ async function readOneByAlumne(req, res){
 
 }
 
+async function readOne(req, res){
+    
+    try{
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        const cicle = await db.collection("cicles").find({"_id": new ObjectId(req.body.id)}).toArray();
+        if(cicle.length < 1){
+            res.status(500).send({ message: "Imposible obtener el ciclo"})
+        }else{
+            res.status(200).send({
+                message: 'Ciclo obtenido correctamente!',
+                data: cicle[0]
+            });
+            client.close();
+        }               
+    }catch (e){
+        console.error(e);
+    }
+}
+
 async function readCicles(req, res){
 
     // readCicles()
@@ -107,11 +143,45 @@ async function readCicles(req, res){
 
 }
 
+async function updateOne(req, res){
+    
+    try{
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        var cicleObj = JSON.parse(req.body.data)
+        var idCicle = cicleObj._id;
+        console.log(idCicle);
+        delete cicleObj._id;
+
+        await db.collection("cicles").replaceOne({"_id": new ObjectId(idCicle)}, cicleObj, {upsert: true} ,function(err, rec){
+            if(err) throw res.status(500).send();
+            res.status(200).send({
+                message: "Cicle actualitzat correctament!"
+            })    
+        })
+    }catch(e){
+        console.log(e)
+    }
+}
+
 async function updateCicles(req, res){
 
 }
 
 async function deleteOne(req, res){
+
+    try{
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        await db.collection("cicles").deleteOne({"_id": new ObjectId(req.body.id)}, function(err, rec){
+            if(err) throw res.status(500).send();
+            res.status(200).send({
+                message: "Cicle eliminat correctament!"
+            })    
+        })
+    }catch(e){
+        console.log(e)
+    }
 
 }
 
@@ -127,7 +197,9 @@ module.exports = {
     insertOne,
     insertMany,
     readCicles,
+    readOne,
     readOneByAlumne,
+    updateOne,
     updateCicles,
     deleteOne,
     deleteMany,

@@ -120,39 +120,39 @@ app.put('/api/ufs/update', (req, res) => {
 // === DELETE ===
 
 app.delete('/api/cicles/deleteOne', (req, res) => {
-    ciclesController.deleteOneCicle(req, res);
+    ciclesController.deleteOne(req, res);
 })
 
 app.delete('/api/cicles/deleteMany', (req, res) => {
-    ciclesController.deleteManyCicles(req, res);
+    ciclesController.deleteMany(req, res);
 })
 
 app.delete('/api/cicles/deleteAll', (req, res) => {
-    ciclesController.deleteAllCicles(req, res);
+    ciclesController.deleteAll(req, res);
 })
 
 app.delete('/api/moduls/deleteOne', (req, res) => {
-    modulsController.deleteOneModul(req, res);
+    modulsController.deleteOne(req, res);
 })
 
 app.delete('/api/moduls/deleteMany', (req, res) => {
-    modulsController.deleteManyModuls(req, res);
+    modulsController.deleteMany(req, res);
 })
 
 app.delete('/api/moduls/deleteAll', (req, res) => {
-    modulsController.deleteAllModuls(req, res);
+    modulsController.deleteAll(req, res);
 })
 
 app.delete('/api/ufs/deleteOne', (req, res) => {
-    ufsController.deleteOneUF(req, res);
+    ufsController.deleteOne(req, res);
 })
 
 app.delete('/api/ufs/deleteMany', (req, res) => {
-    ufsController.deleteManyUFS(req, res);
+    ufsController.deleteMany(req, res);
 })
 
 app.delete('/api/ufs/deleteAll', (req, res) => {
-    ufsController.deleteAllUFS(req, res);
+    ufsController.deleteAll(req, res);
 })
 
  /* ===============================================
@@ -279,4 +279,18 @@ cloudinary.config({
 
 app.post('/api/uploadReq', async (req, res) => {
     perfilsController.uploadReq(req, res);
+})
+
+// ==== SPRINT 4 ====
+
+app.post('/api/reqPerfils/updateAlumProfile', (req, res) => {
+    perfilsController.updateAlumProfile(req, res);
+})
+
+app.post('/api/cicles/readOne', (req, res) => {
+    ciclesController.readOne(req, res);
+})
+
+app.put('/api/cicles/updateOne', (req, res) => {
+    ciclesController.updateOne(req, res);
 })
