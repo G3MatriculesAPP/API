@@ -159,7 +159,7 @@ async function getStatus(req, res){
             const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
             const db = client.db('G3Matricules');
 
-            const login = await db.collection("alumnes").find({"_id": new ObjectId(req.body.id)}).project(filter).toArray();
+            const login = await db.collection("alumnes").find({"_id": new ObjectId(payload.sub)}).project(filter).toArray();
             console.log(login);
             
             res.status(200).send({
