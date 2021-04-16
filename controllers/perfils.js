@@ -160,11 +160,11 @@ async function getStatus(req, res){
             const db = client.db('G3Matricules');
 
             const login = await db.collection("alumnes").find({"_id": new ObjectId(req.body.id)}).project(filter).toArray();
-
+            console.log(login);
             
             res.status(200).send({
-
-                result: login[0].estatSolicitut
+            
+                result: login[0]
             })
         }else{
             console.log("Token invalido...");
