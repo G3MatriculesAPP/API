@@ -143,6 +143,38 @@ async function readOne(req, res){
 
 }
 
+async function getStatus(req, res){
+    try{
+
+        var validate = false;
+        var payload = ""
+        await authController.decodeToken(req.body.token)
+        .then(response => {
+            validate = true;
+            payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
+        })
+
+        if(validate){
+            const filter = { convocatoria: {estatSolicitut: 1}};
+            const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+            const db = client.db('G3Matricules');
+
+            const login = await db.collection("perfilsRequeriments").find({"_id": new ObjectId(req.body.id)}).project(filter).toArray();
+
+            console.log(result)
+            res.status(200).send({
+                message: "Fichero subido correctamente!"
+            })
+        }else{
+            console.log("Token invalido...");
+            res.status(500).send("Error....")
+        }        
+    }catch (err) {
+        console.log(err)
+        res.status(500).send("Error....")
+    }
+}
+
 async function updateOne(req, res){
 
 }
