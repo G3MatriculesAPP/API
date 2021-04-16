@@ -155,7 +155,7 @@ async function getStatus(req, res){
         })
 
         if(validate){
-            const filter = { convocatoria: {estatSolicitut: 1}};
+            const filter = { convocatoria: {estatSolicitud: 1}};
             const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
             const db = client.db('G3Matricules');
 
