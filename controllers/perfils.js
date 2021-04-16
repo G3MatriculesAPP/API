@@ -195,5 +195,6 @@ module.exports = {
     updateOne,
     updateAlumProfile,
     deleteOne,
-    deleteAll
+    deleteAll,
+    getStatus
 }
