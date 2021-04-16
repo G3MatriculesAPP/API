@@ -159,11 +159,12 @@ async function getStatus(req, res){
             const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
             const db = client.db('G3Matricules');
 
-            const login = await db.collection("perfilsRequeriments").find({"_id": new ObjectId(req.body.id)}).project(filter).toArray();
+            const login = await db.collection("alumnes").find({"_id": new ObjectId(req.body.id)}).project(filter).toArray();
 
             console.log(result)
             res.status(200).send({
-                message: "Fichero subido correctamente!"
+
+                result: login[0].estatSolicitut
             })
         }else{
             console.log("Token invalido...");
