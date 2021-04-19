@@ -143,6 +143,39 @@ async function readOne(req, res){
 
 }
 
+async function getStatus(req, res){
+    try{
+
+        var validate = false;
+        var payload = ""
+        await authController.decodeToken(req.body.token)
+        .then(response => {
+            validate = true;
+            payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
+        })
+
+        if(validate){
+            const filter = { convocatoria: {estatSolicitud: 1}};
+            const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+            const db = client.db('G3Matricules');
+
+            const login = await db.collection("alumnes").find({"_id": new ObjectId(payload.sub)}).project(filter).toArray();
+            console.log(login);
+            
+            res.status(200).send({
+            
+                result: login[0].convocatoria.estatSolicitud
+            })
+        }else{
+            console.log("Token invalido...");
+            res.status(500).send("Error....")
+        }        
+    }catch (err) {
+        console.log(err)
+        res.status(501).send("Error....")
+    }
+}
+
 async function updateOne(req, res){
 
 }
@@ -163,5 +196,6 @@ module.exports = {
     updateOne,
     updateAlumProfile,
     deleteOne,
-    deleteAll
+    deleteAll,
+    getStatus
 }

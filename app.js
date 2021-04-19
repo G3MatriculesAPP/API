@@ -268,6 +268,9 @@ app.post('/api/cicles/readOneByAlumne', (req, res) => {
     ciclesController.readOneByAlumne(req, res);
 })
 
+app.post('/api/alumnes/status', (req, res) => {
+    perfilsController.getStatus(req, res);
+})
 
 const cloudinary = require('cloudinary');
 cloudinary.config({ 
