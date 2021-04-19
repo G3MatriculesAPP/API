@@ -44,17 +44,21 @@ async function getStatusPerfil(req, res){
             payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
         })
 
-        const filter = { _id: 1, perfilRequisits: 1, estatRequisits: 1}
+        const filter = {perfilRequisits: 1, estatRequisits: 1}
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
         const login = await db.collection("alumnes").find({"_id": new ObjectId(payload.sub)}).project(filter).toArray();
+
+        const filterPerfil = {_id: 1};
+        const perfil = await db.collection("perfilsRequeriments").find({"nom": login[0].perfilRequisits}).project(filterPerfil).toArray();
 
         if(login.length < 1){
             res.status(500).send({ message: "Imposible obtener el estado del perfil..."})
         }else{
             res.status(200).send({
                 message: 'Estado del perfil obtenido correctamente!',
-                data: login
+                data: login,
+                dataPerfil : perfil
             });
             client.close();
         }
@@ -101,7 +105,7 @@ async function uploadReq(req, res){
 async function getRequisits(req, res){
 
     try {
-        
+        var requisit = await cloudinary.v2.image("uploads/"+req.body.id+"/"+req.body.nomReq);
     } catch (e) {
         console.log(e);
     }
