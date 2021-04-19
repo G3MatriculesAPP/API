@@ -301,3 +301,7 @@ app.put('/api/cicles/updateOne', (req, res) => {
 app.post('/api/perfils/getStatusPerfil', (req, res) => {
     perfilsController.getStatusPerfil(req, res);
 })
+
+app.post('/api/perfils/getRequisit', (req, res) =>{
+    perfilsController.getRequisit(req, res);
+})

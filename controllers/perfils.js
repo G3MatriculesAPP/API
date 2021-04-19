@@ -102,10 +102,16 @@ async function uploadReq(req, res){
     }
 }
 
-async function getRequisits(req, res){
+async function getRequisit(req, res){
 
     try {
-        var requisit = await cloudinary.v2.image("uploads/"+req.body.id+"/"+req.body.nomReq);
+        var requisit = await cloudinary.image("uploads/"+req.body.id+"/"+req.body.nomReq);
+        // var requisit = await cloudinary.image("uploads/60759e32d94f3900041bb3b1/Informe_medico.pdf");
+        console.log(requisit);
+        res.status(200).send({
+            message: "OK!",
+            data: requisit
+        })
     } catch (e) {
         console.log(e);
     }
@@ -244,5 +250,6 @@ module.exports = {
     deleteOne,
     deleteAll,
     getStatus,
-    getStatusPerfil
+    getStatusPerfil,
+    getRequisit
 }
