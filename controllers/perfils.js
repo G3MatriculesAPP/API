@@ -78,8 +78,10 @@ async function uploadReq(req, res){
 
         if(validate){
             const fileStr = req.body.file;
+            var reqName = req.body.reqName;
+            reqName = reqName.replace(" ", "_");
             var result = await cloudinary.v2.uploader.upload(fileStr, {
-                public_id: "uploads/" + payload.sub + "/" + req.body.reqName,
+                public_id: "uploads/" + payload.sub + "/" + reqName,
                 overwrite: true
             });
             console.log(result)
@@ -94,6 +96,16 @@ async function uploadReq(req, res){
         console.log(err)
         res.status(500).send("Error....")
     }
+}
+
+async function getRequisits(req, res){
+
+    try {
+        
+    } catch (e) {
+        console.log(e);
+    }
+
 }
 
 
