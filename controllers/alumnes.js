@@ -43,7 +43,7 @@ async function readAll(req, res){
 async function readAllByCicle(req, res){
 
     try{
-        const filter = { _id: 1, nom: 1, primerCognom: 1, segonCognom: 1, dni: 1, email: 1}
+        const filter = { _id: 1, nom: 1, primerCognom: 1, segonCognom: 1, dni: 1, email: 1, nie: 1}
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
         const login = await db.collection("alumnes").find({"convocatoria.ensenyament.nom": req.body.cicle}).project(filter).toArray();
