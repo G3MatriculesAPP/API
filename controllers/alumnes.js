@@ -98,8 +98,7 @@ async function updateOne(req, res){
         await db.collection("alumnes").replaceOne({"_id": new ObjectId(idAlumne)}, alumneObj, {upsert: true} ,function(err, rec){
             if(err) throw res.status(500).send();
             res.status(200).send({
-                message: "Alumne actualitzat correctament!",
-                id: rec.upsertedId._id
+                message: "Alumne actualitzat correctament!"
             })    
         })
     }catch(e){
