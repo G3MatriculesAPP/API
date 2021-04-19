@@ -92,7 +92,7 @@ async function updateOne(req, res){
     try{
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
-        var alumneObj = JSON.parse(req.body.data)
+        var alumneObj = req.body.data
         var idAlumne = alumneObj._id;
         delete alumneObj._id;
         await db.collection("alumnes").replaceOne({"_id": new ObjectId(idAlumne)}, alumneObj, {upsert: true} ,function(err, rec){
