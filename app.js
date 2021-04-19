@@ -297,3 +297,7 @@ app.post('/api/cicles/readOne', (req, res) => {
 app.put('/api/cicles/updateOne', (req, res) => {
     ciclesController.updateOne(req, res);
 })
+
+app.post('/api/perfils/getStatusPerfil', (req, res) => {
+    perfilsController.getStatusPerfil(req, res);
+})

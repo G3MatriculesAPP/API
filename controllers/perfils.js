@@ -17,14 +17,14 @@ async function updateAlumProfile(req, res){
     
     try{
         var payload = ""
-        authController.decodeToken(req.body.token)
+        await authController.decodeToken(req.body.token)
         .then(response => {
             payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
         })
 
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
-        await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$set: {"perfilRequisits": req.body.nomPerfil}, $set: {"estatRequisits": {}}}, function(err, rec){
+        await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$set: {"perfilRequisits": req.body.nomPerfil}, $set: {"estatRequisits": []}}, function(err, rec){
             if(err) throw res.status(500).send();
             res.status(200).send({
                 message: "Perfil actualitzat correctament!"
@@ -33,6 +33,36 @@ async function updateAlumProfile(req, res){
     }catch(e){
         console.error(e);
     }
+}
+
+async function getStatusPerfil(req, res){
+
+    try{
+        var payload = ""
+        await authController.decodeToken(req.body.token)
+        .then(response => {
+            payload = jwt.decode(req.body.token, config.SECRET_TOKEN)
+        })
+
+        const filter = { _id: 1, perfilRequisits: 1, estatRequisits: 1}
+        const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+        const db = client.db('G3Matricules');
+        const login = await db.collection("alumnes").find({"_id": new ObjectId(payload.sub)}).project(filter).toArray();
+
+        if(login.length < 1){
+            res.status(500).send({ message: "Imposible obtener el estado del perfil..."})
+        }else{
+            res.status(200).send({
+                message: 'Estado del perfil obtenido correctamente!',
+                data: login
+            });
+            client.close();
+        }
+
+    }catch(e){
+        console.log(e);
+    }
+
 }
 
 async function uploadReq(req, res){
@@ -197,5 +227,6 @@ module.exports = {
     updateAlumProfile,
     deleteOne,
     deleteAll,
-    getStatus
+    getStatus,
+    getStatusPerfil
 }
