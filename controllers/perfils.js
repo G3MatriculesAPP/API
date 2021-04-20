@@ -186,7 +186,13 @@ async function uploadReq(req, res){
                 public_id: "uploads/" + payload.sub + "/" + reqName,
                 overwrite: true
             });
-            console.log(result)
+
+            const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
+            const db = client.db('G3Matricules');
+
+            const login = await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$push: {"estatRequisits": [1]}})
+
+
             res.status(200).send({
                 message: "Fichero subido correctamente!"
             })
