@@ -134,3 +134,90 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 
 
 ### [POST] /api/reqPerfils/uploadReq
+
+
+
+## **SPRINT 4**
+
+### [POST] /api/reqPerfils/updateAlumProfile
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | string | Token del alumne |
+| nomPerfil | string | Perfil del alumne seleccionat |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Perfil actualitzat correctament! |
+| 500 | Error... |
+
+### [POST] /api/cicles/readOne
+
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| idCicle | string | id del cicle seleccionat |
+
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Requisits obtenidos correctamente! |
+| 500 | Imposible obtener los requisits. |
+
+### [PUT] /api/cicles/updateOne
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| dades cicle | json | Totes les dades dun cicle ordenades | 
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Perfil actualitzat correctament! |
+| 500 | Error... |
+
+### [POST] /api/perfils/getStatusPerfil
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | string | Token del alumne |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Estado del perfil obtenido correctamente! |
+| 500 | Imposible obtener el estado del perfil... |
+
+
+### [POST]  /api/perfils/getRequisit
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| id | string | id del alumne |
+| nomReq | string | nom del requisit |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Fichero subido correctamente! |
+| 500 | Error... |
+
+### [POST] /api/reqPerfils/readOneByAlumne
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| nomPerfil | string | Nom del perfil |
+| idAlumne | string | id del alumne |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | message: 'Requeriments obtenidos correctamente!' |
+| 500 | Error... |
+
+
+### [POST] /api/reqPerfils/updateStatus
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| id | string | id del alumne |
+| estatRequisits | int | el estat dels requisits (0,1,2,3) |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Estat dels requisits actualitzats correctament! |
+| 500 | Error... |
+
+
+
+
+
