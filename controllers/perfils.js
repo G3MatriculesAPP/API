@@ -190,7 +190,7 @@ async function uploadReq(req, res){
             const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
             const db = client.db('G3Matricules');
 
-            const login = await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$push: {"estatRequisits": 1}})
+            const login = await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$push: {"estatRequisits": 2}})
 
 
             res.status(200).send({
