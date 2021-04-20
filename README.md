@@ -50,7 +50,7 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
 | data | JSON | Cicles en format JSON a pujar a la DB |
-(JSON de cicles)
+|      |JSON de cicles||
 
 
 | STATUS | MESSAGE |
@@ -92,6 +92,7 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
 | data | JSON | Alumnes en format JSON a pujar a la DB |
+|      | (jsom de cicles)||
 
 | STATUS | MESSAGE |
 |:-:|:-:|
