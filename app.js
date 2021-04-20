@@ -272,14 +272,6 @@ app.post('/api/alumnes/status', (req, res) => {
     perfilsController.getStatus(req, res);
 })
 
-const cloudinary = require('cloudinary');
-cloudinary.config({ 
-    cloud_name: 'matriculesapp', 
-    api_key: '369193188672646', 
-    api_secret: 'so54IGOFNqjL0aTZcY4FSr-MQ3Y' 
-});
-
-
 app.post('/api/uploadReq', async (req, res) => {
     perfilsController.uploadReq(req, res);
 })
@@ -304,4 +296,12 @@ app.post('/api/perfils/getStatusPerfil', (req, res) => {
 
 app.post('/api/perfils/getRequisit', (req, res) =>{
     perfilsController.getRequisit(req, res);
+})
+
+app.post('/api/reqPerfils/readOneByAlumne', (req, res) => {
+    perfilsController.readOneByAlumne(req, res);
+})
+
+app.post('/api/reqPerfils/updateStatus', (req, res) => {
+    perfilsController.updateStatus(req, res);
 })
