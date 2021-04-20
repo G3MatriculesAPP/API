@@ -181,7 +181,7 @@ async function uploadReq(req, res){
         if(validate){
             const fileStr = req.body.file;
             var reqName = req.body.reqName;
-            reqName = reqName.replace(" ", "_");
+            reqName = reqName.replaceAll(" ", "_");
             var result = await cloudinary.v2.uploader.upload(fileStr, {
                 public_id: "uploads/" + payload.sub + "/" + reqName,
                 overwrite: true
