@@ -158,6 +158,25 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | 500 | No s'ha pogut guardar la seleccio d'UFs. |
 
 
+## **SPRINT 4**
+
+### [POST] /api/reqPerfils/updateAlumProfile
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | string | Token del alumne |
+| nomPerfil | string | Perfil del alumne seleccionat |
+
+### [POST] /api/cicles/readOne
+|:-:|:-:|:-:|
+| PARAM | VALUE | DESCRIPTION |
+| idCicle | string | id del cicle seleccionat |
+(retorna el json de un cicle)
+
+### [POST] /api/cicles/updateOne
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| dades cicle | json | Totes les dades dun cicle ordenades | 
+
 ## EXTRA:
 
 <details>
@@ -187,4 +206,6 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
   /api/reqPerfils/deleteOne
   ```
 </details>
+
+
 
