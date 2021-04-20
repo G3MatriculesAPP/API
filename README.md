@@ -167,8 +167,9 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | nomPerfil | string | Perfil del alumne seleccionat |
 
 ### [POST] /api/cicles/readOne
-|:-:|:-:|:-:|
+
 | PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
 | idCicle | string | id del cicle seleccionat |
 (retorna el json de un cicle)
 
