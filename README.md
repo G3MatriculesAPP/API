@@ -50,6 +50,8 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
 | data | JSON | Cicles en format JSON a pujar a la DB |
+|      |JSON de cicles||
+
 
 | STATUS | MESSAGE |
 |:-:|:-:|
@@ -90,6 +92,7 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
 | data | JSON | Alumnes en format JSON a pujar a la DB |
+|      | (jsom de cicles)||
 
 | STATUS | MESSAGE |
 |:-:|:-:|
@@ -134,7 +137,25 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 
 
 ### [POST] /api/reqPerfils/uploadReq
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| file | File | Ficher a importar com a requisit |
 
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Fitxer importat correctament! |
+| 500 | Imposible importar el fitxer. |
+
+### [PATCH] /api/alumnes/uploadUF
+| PARAM | VALUE | DESCRIPTION |
+|:-:|:-:|:-:|
+| token | String | Token del alumne |
+| data | Array | Array amb 0/1 a insertar/actualitzar a la DB |
+
+| STATUS | MESSAGE |
+|:-:|:-:|
+| 200 | Seleccio d'UFs guardades correctament! |
+| 500 | No s'ha pogut guardar la seleccio d'UFs. |
 
 
 ## **SPRINT 4**
@@ -145,79 +166,47 @@ En este repositorio se encuentra la API de nuestra aplicación multiplataforma, 
 | token | string | Token del alumne |
 | nomPerfil | string | Perfil del alumne seleccionat |
 
-| STATUS | MESSAGE |
-|:-:|:-:|
-| 200 | Perfil actualitzat correctament! |
-| 500 | Error... |
-
 ### [POST] /api/cicles/readOne
 
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
 | idCicle | string | id del cicle seleccionat |
+(retorna el json de un cicle)
 
-
-| STATUS | MESSAGE |
-|:-:|:-:|
-| 200 | Requisits obtenidos correctamente! |
-| 500 | Imposible obtener los requisits. |
-
-### [PUT] /api/cicles/updateOne
+### [POST] /api/cicles/updateOne
 | PARAM | VALUE | DESCRIPTION |
 |:-:|:-:|:-:|
 | dades cicle | json | Totes les dades dun cicle ordenades | 
 
-| STATUS | MESSAGE |
-|:-:|:-:|
-| 200 | Perfil actualitzat correctament! |
-| 500 | Error... |
+## EXTRA:
 
-### [POST] /api/perfils/getStatusPerfil
-| PARAM | VALUE | DESCRIPTION |
-|:-:|:-:|:-:|
-| token | string | Token del alumne |
-
-| STATUS | MESSAGE |
-|:-:|:-:|
-| 200 | Estado del perfil obtenido correctamente! |
-| 500 | Imposible obtener el estado del perfil... |
-
-
-### [POST]  /api/perfils/getRequisit
-| PARAM | VALUE | DESCRIPTION |
-|:-:|:-:|:-:|
-| id | string | id del alumne |
-| nomReq | string | nom del requisit |
-
-| STATUS | MESSAGE |
-|:-:|:-:|
-| 200 | Fichero subido correctamente! |
-| 500 | Error... |
-
-### [POST] /api/reqPerfils/readOneByAlumne
-| PARAM | VALUE | DESCRIPTION |
-|:-:|:-:|:-:|
-| nomPerfil | string | Nom del perfil |
-| idAlumne | string | id del alumne |
-
-| STATUS | MESSAGE |
-|:-:|:-:|
-| 200 | message: 'Requeriments obtenidos correctamente!' |
-| 500 | Error... |
-
-
-### [POST] /api/reqPerfils/updateStatus
-| PARAM | VALUE | DESCRIPTION |
-|:-:|:-:|:-:|
-| id | string | id del alumne |
-| estatRequisits | int | el estat dels requisits (0,1,2,3) |
-
-| STATUS | MESSAGE |
-|:-:|:-:|
-| 200 | Estat dels requisits actualitzats correctament! |
-| 500 | Error... |
-
-
+<details>
+  <summary>Metodos no implementados pero si declarados:</summary>
+  
+  ```
+  /api/cicles/insertOne 
+  /api/cicles/update 
+  /api/moduls/update
+  /api/ufs/update
+  /api/cicles/deleteOne
+  /api/cicles/deleteMany
+  /api/cicles/deleteAll
+  /api/moduls/deleteOne
+  /api/moduls/deleteMany
+  /api/moduls/deleteAll
+  /api/ufs/deleteOne
+  /api/ufs/deleteMany
+  /api/ufs/deleteAll 
+  /api/alumnes/insertOne 
+  /api/alumnes/updateOne 
+  /api/alumnes/deleteOne 
+  /api/alumnes/deleteAll  
+  /api/alumnes/deleteAllByCicle
+  /api/reqPerfils/updateOne 
+  /api/reqPerfils/deleteAll
+  /api/reqPerfils/deleteOne
+  ```
+</details>
 
 
 
