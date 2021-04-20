@@ -24,7 +24,7 @@ async function updateAlumProfile(req, res){
 
         const client = await MongoClient.connect(config.db, {useNewUrlParser: true, useUnifiedTopology: true});
         const db = client.db('G3Matricules');
-        await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$set: {"perfilRequisits": req.body.nomPerfil}, $set: {"estatRequisits": []}}, function(err, rec){
+        await db.collection("alumnes").updateOne({"_id": new ObjectId(payload.sub)}, {$set: {"perfilRequisits": req.body.nomPerfil, "estatRequisits": []}}, function(err, rec){
             if(err) throw res.status(500).send();
             res.status(200).send({
                 message: "Perfil actualitzat correctament!"
